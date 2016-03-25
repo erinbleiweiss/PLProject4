@@ -42,21 +42,36 @@ s_dept = (('ID', 'NAME', 'REGION_ID'),
           (50, "Administration", 1))
 
 
-#Allyson
 # 1)
 print "\nselect * from s_dept: "
 print s_dept[1::]
+
 # 2)
 print "\nselect last_name, first_name, tile, salary from s_emp: "
 print [[i[1], i[2], i[6], i[7]] for i in s_emp[1::]]
+
 # 3)
 print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40: "
 print [[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7] > 1500 and i[9] > 40]
+
 # 4)
 print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept id > 40 order by last_name: "
 print sorted([[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7] > 1500 and i[9] > 40])
 
-#Erin
-# 8)
-print "select last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40 order by salary desc;"
+# 5)
+print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40 order by salary desc:"
 print (sorted([[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7] > 1500 and i[9] > 40], key=lambda x: int(x[3]), reverse=True))
+
+# 6)
+print("\nselect last_name, first_name, title, salary, name from s_emp e join s_dept d on(e.dept_id = d.id)")
+print ([[i[1], i[2], i[6], i[7]] for i in s_emp[1::] for j in s_dept[1::] if i[9] == j[0]])
+
+# 7)
+print ("\nselect dept_id, avg(salary) from s_emp group by dept_id order by dept_id:")
+for department in { d[9] for d in s_emp[1::] }:
+    print (department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[7] for e in s_emp[1::] if e[9] == department ])))
+
+# 8)
+print("\nselect dept_id, avg(salary) from s_emp group by dept_id having avg(salary) < 1500:")
+for department in { d[9] for d in s_emp[1::] }:
+     print (lambda deptno, avgSal: (deptno, avgSal) if avgSal < 1500 else '')(department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[7] for e in s_emp[1::] if e[9] == department ])))
