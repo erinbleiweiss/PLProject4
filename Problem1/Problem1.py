@@ -42,21 +42,22 @@ s_dept = (('ID', 'NAME', 'REGION_ID'),
           (50, "Administration", 1))
 
 
-#Allyson
 # 1)
 print "\nselect * from s_dept: "
 print s_dept[1::]
+
 # 2)
 print "\nselect last_name, first_name, tile, salary from s_emp: "
 print [[i[1], i[2], i[6], i[7]] for i in s_emp[1::]]
+
 # 3)
 print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40: "
 print [[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7] > 1500 and i[9] > 40]
+
 # 4)
 print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept id > 40 order by last_name: "
 print sorted([[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7] > 1500 and i[9] > 40])
 
-#Erin
 # 5)
 print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40 order by salary desc:"
 print (sorted([[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7] > 1500 and i[9] > 40], key=lambda x: int(x[3]), reverse=True))
